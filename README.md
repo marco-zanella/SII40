@@ -4,6 +4,8 @@ Group project for the SII40 course
 This document is a stub.
 
 ## Virtual Sensors
+[![VirtualSensorsDockerImage](https://github.com/marco-zanella/SII40/actions/workflows/VirtualSensorsDockerImage.yml/badge.svg)](https://github.com/marco-zanella/SII40/actions/workflows/VirtualSensorsDockerImage.yml)
+
 Quickly run virtual sensors:
 ```bash
 cd virtual-sensors
