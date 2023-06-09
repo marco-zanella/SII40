@@ -10,3 +10,10 @@ cd virtual-sensors
 pip3 install -r requirements.txt
 python3 main config.ini
 ```
+
+Build and run image:
+```bash
+cd virtual-sensors
+docker build -t virtual-sensors .
+docker run -it --rm --network="host" --name virtual-sensors virtual-sensors
+```
