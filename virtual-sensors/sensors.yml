@@ -1,0 +1,32 @@
+- sensor:
+  type: random
+  id: HUM-01
+  name: humidity
+  value-generator:
+    type: normal
+    mean: 55.0
+    variance: 2.5
+  absolute-error: 1.5
+  delay-generator:
+    type: constant
+    value: 1000
+
+- sensor:
+  type: faulty
+  id: TEMP-01
+  sensor:
+    type: random
+    id: TEMP-01
+    name: temperature
+    value-generator:
+      type: uniform
+      lowerbound: 18.0
+      upperbound: 27.0
+    absolute-error: 0.5
+    delay-generator:
+      type: constant
+      value: 2000
+  reliability: 0.85
+  value-generator:
+    type: constant
+    value: # Will use None
