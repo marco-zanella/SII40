@@ -12,4 +12,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build -t virtual-sensors:$(date +%s) .
+      run: docker build -f virtual-sensors/Dockerfile -t virtual-sensors:$(date +%s) .
