@@ -1,6 +1,7 @@
 - sensor:
   type: random
   id: HUM-01
+  active: true
   name: humidity
   value-generator:
     type: normal
@@ -14,9 +15,11 @@
 - sensor:
   type: faulty
   id: TEMP-01
+  active: true
   sensor:
     type: random
     id: TEMP-01
+    active: true
     name: temperature
     value-generator:
       type: uniform

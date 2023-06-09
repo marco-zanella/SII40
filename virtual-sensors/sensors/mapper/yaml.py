@@ -19,6 +19,7 @@ class Yaml:
             case "random":
                 return Random(
                     sensor_data["id"],
+                    sensor_data["active"],
                     sensor_data["name"],
                     Yaml.parse_value(sensor_data["value-generator"]),
                     sensor_data["absolute-error"],
@@ -27,6 +28,7 @@ class Yaml:
             case "faulty":
                 return Faulty(
                     sensor_data["id"],
+                    sensor_data["active"],
                     Yaml.parse_sensor(sensor_data["sensor"]),
                     sensor_data["reliability"],
                     Yaml.parse_value(sensor_data["value-generator"])
