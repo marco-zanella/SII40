@@ -1,0 +1,106 @@
+version: "3"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    user: mosquitto
+    restart: unless-stopped
+    environment:
+      node.name: mosquitto
+    ports:
+      - 1883:1883
+    networks:
+      - ming
+    volumes:
+      - type: bind
+        source: mosquitto
+        target: /mosquitto/config
+      - type: bind
+        source: log
+        target: /log
+      - type: bind
+        source: data/mosquitto
+        target: /data
+  
+  virtual-sensors:
+    build: virtual-sensors
+    container_name: virtual-sensors
+    restart: unless-stopped
+    networks:
+      - ming
+    volumes:
+      - type: bind
+        source: virtual-sensors
+        target: /virtual-sensors
+
+  nodered:
+    build: nodered
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports: 
+      - 1880:1880
+    networks:
+      - ming
+    volumes:
+      - type: bind
+        source: nodered
+        target: /config
+      - type: bind
+        source: log
+        target: /log
+      - type: bind
+        source: data/nodered
+        target: /data
+
+  influxdb:
+    build: influxdb
+    image: influxdb:latest
+    container_name: influxdb
+    restart: unless-stopped
+    environment:
+      node.name: influxdb
+    ports:
+      - 8086:8086
+    networks:
+      - ming
+    volumes:
+      - type: bind
+        source: influxdb
+        target: /config
+      - type: bind
+        source: data/influxdb/lib
+        target: /var/lib/influxdb2
+      - type: bind
+        source: data/influxdb/etc
+        target: /etc/influxdb2
+    env_file:
+      - influxdb/env
+
+  grafana:
+    build: grafana
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - ming
+    volumes:
+      - type: bind
+        source: data/grafana
+        target: /var/lib/grafana
+
+
+volumes:
+  grafanaData:
+  noderedData:
+  influxData:
+  mosquittoLog:
+  mosquittoData:
+
+# Netowrk
+networks:
+  ming:
+    driver: bridge
