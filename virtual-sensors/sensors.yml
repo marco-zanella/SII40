@@ -1,6 +1,8 @@
+########################################################################
+# Example sensors
 - sensor:
   type: random
-  id: HUM-01
+  id: example-01
   active: false
   name: humidity
   value-generator:
@@ -14,11 +16,11 @@
 
 - sensor:
   type: faulty
-  id: TEMP-01
-  active: true
+  id: example-02
+  active: false
   sensor:
     type: random
-    id: TEMP-01
+    id: example-02
     active: true
     name: temperature
     value-generator:
@@ -33,3 +35,355 @@
   value-generator:
     type: constant
     value: # Will use None
+
+
+########################################################################
+# Environmental sensors
+
+# Room 1 - Working Area (temperature and noise)
+- sensor:
+  type: random
+  id: room-01/environment/temp-01
+  active: true
+  name: temperature
+  value-generator:
+    type: normal
+    mean: 23.0
+    variance: 2.5
+  absolute-error: 2.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-01/environment/noise-01
+  active: true
+  name: noise
+  value-generator:
+    type: normal
+    mean: 55.0
+    variance: 5.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+# Room 2 - Office (temperature, humidity, light)
+- sensor:
+  type: random
+  id: room-02/environment/temp-02
+  active: true
+  name: temperature
+  value-generator:
+    type: normal
+    mean: 20.0
+    variance: 1.5
+  absolute-error: 2.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-02/environment/humidity-01
+  active: true
+  name: humidity
+  value-generator:
+    type: normal
+    mean: 55.0
+    variance: 5.0
+  absolute-error: 1.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-02/environment/light-01
+  active: true
+  name: light
+  value-generator:
+    type: uniform
+    lowerbound: 0.7
+    upperbound: 0.9
+  absolute-error: 1.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+# Room 3 - Warehouse (temperature, humidity, dust, carbon dioxide)
+- sensor:
+  type: random
+  id: room-03/environment/temp-03
+  active: true
+  name: temperature
+  value-generator:
+    type: normal
+    mean: 550.0
+    variance: 20.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-03/environment/humidity-02
+  active: true
+  name: humidity
+  value-generator:
+    type: normal
+    mean: 15.0
+    variance: 5.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-03/environment/dust-01
+  active: true
+  name: pm25
+  value-generator:
+    type: uniform
+    lowerbound: 30.0
+    upperbound: 50.0
+  absolute-error: 2.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-03/environment/carbon-dioxide-01
+  active: true
+  name: co2
+  value-generator:
+    type: uniform
+    lowerbound: 45000.0
+    upperbound: 75000.0
+  absolute-error: 500.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+
+########################################################################
+# Environmental sensors
+
+# Worker 1 - Working with machninery
+- sensor:
+  type: random
+  id: room-01/person/worker-01/body-temperature-01
+  active: true
+  name: body-temperature
+  value-generator:
+    type: normal
+    mean: 36.6
+    variance: 0.1
+  absolute-error: 0.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-01/person/worker-01/heart-rate-01
+  active: true
+  name: heart-rate
+  value-generator:
+    type: normal
+    mean: 80
+    variance: 5
+  absolute-error: 1.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-01/person/worker-01/sistolic-pressure-01
+  active: true
+  name: sistolic-pressure
+  value-generator:
+    type: normal
+    mean: 120.0
+    variance: 5.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+# Worker 2 - Working with machninery
+- sensor:
+  type: random
+  id: room-01/person/worker-02/body-temperature-02
+  active: true
+  name: body-temperature
+  value-generator:
+    type: normal
+    mean: 37.0
+    variance: 0.1
+  absolute-error: 0.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-01/person/worker-02/heart-rate-02
+  active: true
+  name: heart-rate
+  value-generator:
+    type: normal
+    mean: 85
+    variance: 2.5
+  absolute-error: 1.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-01/person/worker-02/sistolic-pressure-02
+  active: true
+  name: sistolic-pressure
+  value-generator:
+    type: normal
+    mean: 130.0
+    variance: 4.5
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+# Worker 3 - Working in office
+- sensor:
+  type: random
+  id: room-02/person/worker-03/body-temperature-03
+  active: true
+  name: body-temperature
+  value-generator:
+    type: normal
+    mean: 36.6
+    variance: 0.1
+  absolute-error: 0.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-02/person/worker-03/heart-rate-03
+  active: true
+  name: heart-rate
+  value-generator:
+    type: normal
+    mean: 80
+    variance: 5
+  absolute-error: 1.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-02/person/worker-03/sistolic-pressure-03
+  active: true
+  name: sistolic-pressure
+  value-generator:
+    type: normal
+    mean: 120.0
+    variance: 5.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+# Worker 4 - Working in office
+- sensor:
+  type: random
+  id: room-02/person/worker-04/body-temperature-04
+  active: true
+  name: body-temperature
+  value-generator:
+    type: normal
+    mean: 36.6
+    variance: 0.1
+  absolute-error: 0.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-02/person/worker-04/heart-rate-04
+  active: true
+  name: heart-rate
+  value-generator:
+    type: normal
+    mean: 80
+    variance: 5
+  absolute-error: 1.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-02/person/worker-04/sistolic-pressure-04
+  active: true
+  name: sistolic-pressure
+  value-generator:
+    type: normal
+    mean: 120.0
+    variance: 5.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
+
+# Worker 5 - Collapsed in warehouse
+- sensor:
+  type: random
+  id: room-03/person/worker-05/body-temperature-05
+  active: true
+  name: body-temperature
+  value-generator:
+    type: normal
+    mean: 39.5
+    variance: 1.0
+  absolute-error: 0.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-03/person/worker-05/heart-rate-05
+  active: true
+  name: heart-rate
+  value-generator:
+    type: normal
+    mean: 45.0
+    variance: 2.0
+  absolute-error: 1.5
+  delay-generator:
+    type: constant
+    value: 30000
+
+- sensor:
+  type: random
+  id: room-03/person/worker-05/sistolic-pressure-05
+  active: true
+  name: sistolic-pressure
+  value-generator:
+    type: normal
+    mean: 90.0
+    variance: 5.0
+  absolute-error: 5.0
+  delay-generator:
+    type: constant
+    value: 30000
