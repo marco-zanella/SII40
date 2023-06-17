@@ -1,0 +1,325 @@
+[
+    {
+        "id": "ef4fe4e49c5ce250",
+        "type": "tab",
+        "label": "SII40",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3724a1cf748a0e84",
+        "type": "mqtt-broker",
+        "name": "MQTT",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "472c542ad7bbf5b1",
+        "type": "influxdb",
+        "hostname": "192.168.1.54",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "Influxdb",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://influxdb:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "9cea82962c78e379",
+        "type": "mqtt in",
+        "z": "ef4fe4e49c5ce250",
+        "name": "sensors",
+        "topic": "sensors/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3724a1cf748a0e84",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "0cccce1ecfa0520f"
+            ]
+        ]
+    },
+    {
+        "id": "fd6a51149a834c78",
+        "type": "influxdb out",
+        "z": "ef4fe4e49c5ce250",
+        "influxdb": "472c542ad7bbf5b1",
+        "name": "influxdb",
+        "measurement": "sensors",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "s",
+        "retentionPolicyV18Flux": "",
+        "org": "unife",
+        "bucket": "nodered",
+        "x": 880,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "31aaa42456112dfd",
+        "type": "function",
+        "z": "ef4fe4e49c5ce250",
+        "name": "header decorator",
+        "func": "var pieces = msg.topic.split(\"/\")\nreturn {\n    header: {\n        type: pieces[2],\n        sensor: pieces[2] === \"environment\" ? pieces[3]: pieces[4],\n        room: pieces[1],\n        person: pieces[2] === \"person\" ? pieces[3] : null\n    },\n    payload: msg.payload\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "7533c7d9803ade50"
+            ]
+        ]
+    },
+    {
+        "id": "7533c7d9803ade50",
+        "type": "switch",
+        "z": "ef4fe4e49c5ce250",
+        "name": "switch type",
+        "property": "header.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "environment",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "person",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "9cc3879245b9bf70"
+            ],
+            [
+                "88aad054ae7461f4"
+            ],
+            [
+                "d503aafa9693734f"
+            ]
+        ]
+    },
+    {
+        "id": "9cc3879245b9bf70",
+        "type": "change",
+        "z": "ef4fe4e49c5ce250",
+        "name": "environment measure",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.type",
+                "pt": "msg",
+                "to": "environment",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.sensor",
+                "pt": "msg",
+                "to": "header.sensor",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.room",
+                "pt": "msg",
+                "to": "header.room",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 140,
+        "wires": [
+            [
+                "06a8a7c057a97446"
+            ]
+        ]
+    },
+    {
+        "id": "88aad054ae7461f4",
+        "type": "change",
+        "z": "ef4fe4e49c5ce250",
+        "name": "person measure",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.type",
+                "pt": "msg",
+                "to": "person",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.sensor",
+                "pt": "msg",
+                "to": "header.sensor",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.room",
+                "pt": "msg",
+                "to": "header.room",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.person",
+                "pt": "msg",
+                "to": "header.person",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 180,
+        "wires": [
+            [
+                "06a8a7c057a97446"
+            ]
+        ]
+    },
+    {
+        "id": "d503aafa9693734f",
+        "type": "function",
+        "z": "ef4fe4e49c5ce250",
+        "name": "unknown measure",
+        "func": "node.warn(\"Unknown type \\\"\" + msg.header.type + \"\\\"\")",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0cccce1ecfa0520f",
+        "type": "change",
+        "z": "ef4fe4e49c5ce250",
+        "name": "timestamp injector",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.received",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "31aaa42456112dfd"
+            ]
+        ]
+    },
+    {
+        "id": "06a8a7c057a97446",
+        "type": "change",
+        "z": "ef4fe4e49c5ce250",
+        "name": "influxdb converter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t    msg.payload,\t    {\t        \"type\": msg.payload.type,\t        \"name\": msg.payload.name,\t        \"room\": msg.payload.room,\t        \"person\": msg.payload.person or null,\t        \"sensor\": msg.payload.sensor\t    }\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "fd6a51149a834c78"
+            ]
+        ]
+    },
+    {
+        "id": "46735a62f301156d",
+        "type": "debug",
+        "z": "ef4fe4e49c5ce250",
+        "name": "debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 100,
+        "wires": []
+    }
+]

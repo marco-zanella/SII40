@@ -36,7 +36,6 @@ services:
 
   nodered:
     build: nodered
-    image: nodered/node-red:latest
     container_name: nodered
     restart: unless-stopped
     ports: 
