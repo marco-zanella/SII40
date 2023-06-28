@@ -71,32 +71,49 @@
 
 # Room 2 - Office (temperature, humidity, light)
 - sensor:
-  type: random
+  type: faulty
   id: room-02/environment/temp-02
   active: true
-  name: temperature
+  sensor:
+    type: random
+    id: room-02/environment/temp-02
+    active: true
+    name: temperature
+    value-generator:
+      type: normal
+      mean: 20.0
+      variance: 1.5
+    absolute-error: 2.0
+    delay-generator:
+      type: constant
+      value: 30000
+  reliability: 0.85
   value-generator:
-    type: normal
-    mean: 20.0
-    variance: 1.5
-  absolute-error: 2.0
-  delay-generator:
     type: constant
-    value: 30000
+    value:
 
 - sensor:
-  type: random
+  type: faulty
   id: room-02/environment/humidity-01
   active: true
-  name: humidity
+  sensor:
+    type: random
+    id: room-02/environment/humidity-01
+    active: true
+    name: humidity
+    value-generator:
+      type: normal
+      mean: 55.0
+      variance: 5.0
+    absolute-error: 1.0
+    delay-generator:
+      type: constant
+      value: 30000
+  reliability: 0.8
   value-generator:
-    type: normal
-    mean: 55.0
-    variance: 5.0
-  absolute-error: 1.0
-  delay-generator:
-    type: constant
-    value: 30000
+    type: uniform
+    lowerbound: 10.0
+    upperbound: 90.0
 
 - sensor:
   type: random
