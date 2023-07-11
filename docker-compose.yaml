@@ -90,6 +90,12 @@ services:
       - type: bind
         source: data/grafana
         target: /var/lib/grafana
+      - type: bind
+        source: log
+        target: /var/log/grafana
+      - type: bind
+        source: grafana/grafana.db
+        target: /var/lib/grafana/grafana.db
 
 
 volumes:
