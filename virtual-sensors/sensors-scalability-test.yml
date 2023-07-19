@@ -1,0 +1,87 @@
+########################################################################
+# Scalability and stress test
+
+# Every second
+- sensor:
+  type: random
+  id: room-01/environment/scalability-01
+  active: true
+  name: scalability
+  value-generator:
+    type: normal
+    mean: 0
+    variance: 1
+  absolute-error: 0.0
+  delay-generator:
+    type: constant
+    value: 50
+
+- sensor:
+  type: random
+  id: room-01/environment/scalability-02
+  active: true
+  name: scalability
+  value-generator:
+    type: normal
+    mean: 10
+    variance: 1
+  absolute-error: 0.0
+  delay-generator:
+    type: constant
+    value: 50
+
+- sensor:
+  type: random
+  id: room-01/environment/scalability-03
+  active: true
+  name: scalability
+  value-generator:
+    type: normal
+    mean: 20
+    variance: 1
+  absolute-error: 0.0
+  delay-generator:
+    type: constant
+    value: 50
+
+- sensor:
+  type: random
+  id: room-01/environment/scalability-04
+  active: true
+  name: scalability
+  value-generator:
+    type: normal
+    mean: 30
+    variance: 1
+  absolute-error: 0.0
+  delay-generator:
+    type: constant
+    value: 50
+
+- sensor:
+  type: random
+  id: room-01/environment/scalability-05
+  active: true
+  name: scalability
+  value-generator:
+    type: normal
+    mean: 40
+    variance: 1
+  absolute-error: 0.0
+  delay-generator:
+    type: constant
+    value: 50
+
+- sensor:
+  type: random
+  id: room-01/environment/scalability-06
+  active: true
+  name: scalability
+  value-generator:
+    type: normal
+    mean: 50
+    variance: 1
+  absolute-error: 0.0
+  delay-generator:
+    type: constant
+    value: 50
