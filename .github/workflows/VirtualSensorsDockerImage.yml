@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Update pip
-      run: pip install --upgrade pip
     - name: Build the Docker image
       working-directory: virtual-sensors
-      run: docker build -t virtual-sensors:$(date +%s) .
+      run: pip install --upgrade pip && docker build -t virtual-sensors:$(date +%s) .
